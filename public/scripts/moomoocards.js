@@ -7,19 +7,26 @@ define(function(require) {
 
     var initialize = function (container) {
         var stage = createStage(container)
-        var message = $('#' + container).append('<textarea></textarea>')
+        $('#' + container).prepend('<textarea></textarea><br>')
 
+        var $message = $('#' + container + ">textarea")
         var messageLayer = new Kinetic.Layer({draggable: true})
         var message = new Kinetic.Text({
             x: 100,
             y: 60,
-            text: 'COMPLEX TEXT\n\nAll the world\'s a stage, and all the men and women merely players. They have their exits and their entrances.',
-            fontSize: 18,
+            fontSize: 24,
             fontFamily: 'Calibri',
-            fill: '#555',
+            fill: '#eee',
             width: 380,
             padding: 20,
-            align: 'center'
+            align: 'center',
+            fontStyle: 'bold'
+        })
+
+
+        $message.on('keydown change', function() {
+            message.text($message.val())
+            messageLayer.draw()
         })
 
         messageLayer.add(message)
