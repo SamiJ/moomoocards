@@ -23,8 +23,7 @@ define(function(require) {
             fontStyle: 'bold'
         })
 
-
-        $message.on('keydown change', function() {
+        $message.on('input propertychange', function() {
             message.text($message.val())
             messageLayer.draw()
         })
