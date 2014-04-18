@@ -6,7 +6,6 @@ This is an inital plan for the app, don't expect any of the features to be worki
 # MooMooCards
 
 Web app for creating custom greetings cards typically involving funny animals.
-See it running at http://www.pinkhoof.com/cards
 
 ## Typical flow
 
