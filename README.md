@@ -1,13 +1,12 @@
-# node advanage
-#	package & dependency manager
-#	single language
-#	native json support
+# NOTE for version 0.1
+This is an inital plan for the app, don't expect any of the features to be working yet :)
+
+---
 
 # MooMooCards
 
 Web app for creating custom greetings cards typically involving funny animals.
 See it running at http://www.pinkhoof.com/cards
-
 
 ## Typical flow
 
@@ -26,7 +25,7 @@ Login with google account to see all the cards you have created and share the ol
 * Creation works best on computers and tablets, viewing cards also works on phones
 
 
-## API
+## API (not yet implemented)
 
 GET /card/{id}
 	Returns 
