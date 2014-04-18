@@ -11,6 +11,6 @@ require.config({
 
 })
 
-require(['moomoocards'], function (Cards) {
-    Cards.initialize("mooAppContent")
+require(['moomoocards'], function (cards) {
+    cards.initialize("mooAppContent")
 })
