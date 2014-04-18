@@ -1,4 +1,4 @@
-define(function(require) {
+define(function (require) {
     var $ = require('jquery')
     var _ = require('_')
     require('kinetic')
@@ -10,20 +10,30 @@ define(function(require) {
         $('#' + container).prepend('<textarea></textarea><br>')
 
         var $message = $('#' + container + ">textarea")
-        var messageLayer = new Kinetic.Layer({draggable: true})
+
+        var messageLayer = new Kinetic.Layer(
+            {
+                draggable: true,
+                dragBoundFunc: function (pos) {
+                    return {
+                        // FIXME: limits to precalculated vars
+                        x: Math.max(0, Math.min(background.width-message.getTextWidth(), pos.x)),
+                        y: Math.max(0, Math.min(background.height-message.getHeight(), pos.y))
+                    }
+                }
+            })
         var message = new Kinetic.Text({
-            x: 100,
-            y: 60,
+            x: 0,
+            y: 0,
             fontSize: 24,
             fontFamily: 'Calibri',
             fill: '#eee',
             width: 380,
-            padding: 20,
-            align: 'center',
+            padding: 0,
             fontStyle: 'bold'
         })
 
-        $message.on('input propertychange', function() {
+        $message.on('input propertychange', function () {
             message.text($message.val())
             messageLayer.draw()
         })
@@ -32,8 +42,8 @@ define(function(require) {
 
         var backgroundLayer = new Kinetic.Layer()
         var background = new Image()
-        background.src= INITIAL_CARD
-        background.onload = function() {
+        background.src = INITIAL_CARD
+        background.onload = function () {
             backgroundLayer.add(new Kinetic.Image({image: background}))
             stage.add(backgroundLayer)
             stage.add(messageLayer)
@@ -43,13 +53,11 @@ define(function(require) {
     }
 
     function createStage(container) {
-        var stage = new Kinetic.Stage({
-            container : container,
-            width : 640,
-            height : 420
+        return new Kinetic.Stage({
+            container: container,
+            width: 640,
+            height: 420
         })
-
-        return stage
     }
 
     return {
