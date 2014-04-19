@@ -8,6 +8,7 @@ define(function (require) {
     var initialize = function (container) {
         var stage = createStage(container)
         $('#' + container).prepend('<textarea></textarea><br>')
+        $('#' + container).append('<div id="js-save">Save and share your card</div>')
 
         var $message = $('#' + container + ">textarea")
 
@@ -38,6 +39,12 @@ define(function (require) {
             messageLayer.draw()
         })
 
+        $('#js-save', '#' + container).on('click', function() {
+            stage.toDataURL({
+                    callback: function(dataUrl) {save($message.val(), dataUrl, function(id) {alert('id')})}
+                })
+        })
+
         messageLayer.add(message)
 
         var backgroundLayer = new Kinetic.Layer()
@@ -58,6 +65,10 @@ define(function (require) {
             width: 640,
             height: 420
         })
+    }
+
+    function save(message, dataUrl, callback) {
+        $.post("createCard", {"message": message, "image": dataUrl}, function(data) {callback(data.cardId)})
     }
 
     return {
