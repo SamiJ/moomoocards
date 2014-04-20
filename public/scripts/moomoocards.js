@@ -41,7 +41,7 @@ define(function (require) {
 
         $('#js-save', '#' + container).on('click', function() {
             stage.toDataURL({
-                    callback: function(dataUrl) {save($message.val(), dataUrl, function(id) {alert('id')})}
+                    callback: function(dataUrl) {save($message.val(), dataUrl, function(id) {alert(id)})}
                 })
         })
 
@@ -56,7 +56,6 @@ define(function (require) {
             stage.add(messageLayer)
             stage.draw()
         }
-
     }
 
     function createStage(container) {
