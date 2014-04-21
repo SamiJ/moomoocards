@@ -5,7 +5,7 @@ This is an inital plan for the app, don't expect any of the features to be worki
 
 # MooMooCards
 
-Web app for creating custom greetings cards typically involving funny animals.
+Web app for creating custom greetings cards typically involving funny animals. Creating cards works best on computers and tablets, phones are mostly for seeing received cards.
 
 ## Typical flow
 
@@ -19,10 +19,8 @@ Login with google account to see all the cards you have created and share the ol
 
 * Web ui for creating and sharing your card
 * Rest/http-api to server
-* Example server implementation based on google app engine
+* Example server implementation based on node.js and express
 * Pictures and card components to get you started
-* Creation works best on computers and tablets, viewing cards also works on phones
-
 
 ## API (not yet implemented)
 
@@ -34,7 +32,7 @@ POST /card
 	Body
 		{
 			"message": "card text",
-			"image": "image in .png datauri"
+			"imageDataUrl": "image in .png dataURL"
 		}
 
 	Returns
