@@ -10,7 +10,8 @@ var logger = require('morgan')
 var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser')
 
-var routes = require('./routes/index')
+var index = require('./routes/index')
+var api = require('./routes/api')
 var http = require('http')
 
 var mongo = require('mongodb')
@@ -39,7 +40,8 @@ app.use(function(req,res,next) {
 if ('development' == env) {
 }
 
-app.use('/', routes)
+app.use('/', index)
+app.use('/api', api)
 
 app.set('port', process.env.PORT || 3000);
 http.createServer(app).listen(app.get('port'), function(){
