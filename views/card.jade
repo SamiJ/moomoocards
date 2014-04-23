@@ -1,5 +1,12 @@
-extends layout
-block content
-    h1= title
-    p Welcome to #{title}
-img(src=imageDataUrl)
+doctype html
+html
+    head
+        title=""
+        link(rel='stylesheet', href='/stylesheets/style.css')
+    body
+        block content
+            h1= title
+            div(class="card")
+                img(src=imageDataUrl)
+            div
+                a(href="index.html") Create your own card.
