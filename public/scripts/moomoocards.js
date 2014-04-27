@@ -7,22 +7,22 @@ define(function (require) {
 
     var initialize = function (container) {
         var stage = createStage(container)
-        $('#' + container).prepend('<textarea></textarea><br>')
-        $('#' + container).append('<div id="js-save">Save and share your card</div>')
+        var $container = $('#' + container)
+        $container.prepend('<textarea></textarea><br>')
+        $container.append('<div id="js-save">Click here to save and share your card :)</div>')
 
         var $message = $('#' + container + ">textarea")
 
-        var messageLayer = new Kinetic.Layer(
-            {
-                draggable: true,
-                dragBoundFunc: function (pos) {
-                    return {
-                        // FIXME: limits to precalculated vars
-                        x: Math.max(0, Math.min(background.width-message.getTextWidth(), pos.x)),
-                        y: Math.max(0, Math.min(background.height-message.getHeight(), pos.y))
-                    }
+        var messageLayer = new Kinetic.Layer({
+            draggable: true,
+            dragBoundFunc: function (pos) {
+                return {
+                    // FIXME: limits to precalculated vars
+                    x: Math.max(0, Math.min(background.width - message.getTextWidth(), pos.x)),
+                    y: Math.max(0, Math.min(background.height - message.getHeight(), pos.y))
                 }
-            })
+            }
+        })
         var message = new Kinetic.Text({
             x: 0,
             y: 0,
@@ -39,10 +39,18 @@ define(function (require) {
             messageLayer.draw()
         })
 
-        $('#js-save', '#' + container).on('click', function() {
+        $('#js-save', '#' + container).on('click', function () {
             stage.toDataURL({
-                    callback: function(dataUrl) {save($message.val(), dataUrl, function(id) {alert(id)})}
-                })
+                callback: function (dataUrl) {
+                    save($message.val(), dataUrl, function (id) {
+                        url = "http://www.facebook.com/sharer.php?u=" + encodeURIComponent(window.location.host + "/card/" + id)
+                        $container.append('<div>')
+                        $container.append('Card created successfully! Share it on<br>')
+                        $container.append('<a href="' + url + '" target="_blank">Facebook</a>')
+                        $container.append('</div>')
+                    })
+                }
+            })
         })
 
         messageLayer.add(message)
@@ -67,7 +75,9 @@ define(function (require) {
     }
 
     function save(message, dataUrl, callback) {
-        $.post("api/createCard", {"message": message, "imageDataUrl": dataUrl}, function(data) {callback(data.cardId)})
+        $.post("api/createCard", {"message": message, "imageDataUrl": dataUrl}, function (data) {
+            callback(data.cardId)
+        })
     }
 
     return {
