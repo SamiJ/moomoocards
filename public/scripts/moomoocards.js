@@ -4,6 +4,13 @@ define(function (require) {
     require('kinetic')
 
     var INITIAL_CARD = "/images/card_apina.png"
+    var dragLimitX = 0
+    var dragLimitY = 0
+
+    function updateDragLimits(image, message) {
+        dragLimitX = image.width - message.getTextWidth()
+        dragLimitY = image.height - message.getHeight()
+    }
 
     var initialize = function (container) {
         var stage = createStage(container)
@@ -17,9 +24,8 @@ define(function (require) {
             draggable: true,
             dragBoundFunc: function (pos) {
                 return {
-                    // FIXME: limits to precalculated vars
-                    x: Math.max(0, Math.min(background.width - message.getTextWidth(), pos.x)),
-                    y: Math.max(0, Math.min(background.height - message.getHeight(), pos.y))
+                    x: Math.max(0, Math.min(dragLimitX, pos.x)),
+                    y: Math.max(0, Math.min(dragLimitY, pos.y))
                 }
             }
         })
@@ -36,6 +42,7 @@ define(function (require) {
 
         $message.on('input propertychange', function () {
             message.text($message.val())
+            updateDragLimits(background, message)
             messageLayer.draw()
         })
 
@@ -62,6 +69,7 @@ define(function (require) {
         var background = new Image()
         background.src = INITIAL_CARD
         background.onload = function () {
+            updateDragLimits(background, message)
             backgroundLayer.add(new Kinetic.Image({image: background}))
             stage.add(backgroundLayer)
             stage.add(messageLayer)
