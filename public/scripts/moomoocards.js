@@ -105,7 +105,7 @@ define(function (require) {
     }
 
     function save(message, dataUrl, callback) {
-        $.post("api/createCard", {"message": message, "imageDataUrl": dataUrl}, function (data) {
+        $.post("api/card", {"message": message, "imageDataUrl": dataUrl}, function (data) {
             callback(data.cardId)
         })
     }
