@@ -43,10 +43,13 @@ define(function (require) {
             stage.toDataURL({
                 callback: function (dataUrl) {
                     save($message.val(), dataUrl, function (id) {
-                        url = "http://www.facebook.com/sharer.php?u=" + encodeURIComponent(window.location.host + "/card/" + id)
+                        var cardUrl = window.location.origin + "/card/" + id
+                        var facebookShareUrl = "http://www.facebook.com/sharer.php?u=" + encodeURIComponent(cardUrl)
+                        //FIXME - templates for js rendering?
                         $container.append('<div>')
-                        $container.append('Card created successfully! Share it on<br>')
-                        $container.append('<a href="' + url + '" target="_blank">Facebook</a>')
+                        $container.append('Card created successfully!<br>')
+                        $container.append('<a target="_blank" href="' + cardUrl + '">' + cardUrl + '</a><br><br>')
+                        $container.append('Share it on <a href="' + facebookShareUrl + '" target="_blank">Facebook</a>')
                         $container.append('</div>')
                     })
                 }
