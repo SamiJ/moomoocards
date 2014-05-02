@@ -6,11 +6,7 @@ router.get('/', function(req, res) {
 })
 
 router.get('/card/:id', function(req, res) {
-    var cards = req.db.get('cards')
-    cards.findById(req.params.id, function(err, doc) {
-        if (err) console.log(err)
-        res.render('card', {"imageDataUrl": doc.imageDataUrl})
-    })
+    res.render('card', {"cardId": req.params.id})
 })
 
 router.get('/cards', function(req, res) {
@@ -26,6 +22,3 @@ router.get('/cards', function(req, res) {
 })
 
 module.exports = router
-
-
-

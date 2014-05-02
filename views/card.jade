@@ -1,12 +1,12 @@
 doctype html
 html
     head
-        title=""
+        title="Greetings"
         link(rel='stylesheet', href='/stylesheets/style.css')
     body
         block content
             h1= title
             div(class="card")
-                img(src=imageDataUrl)
+                img(src="/api/card/" + cardId)
             div
                 a(href="/") Create your own card
