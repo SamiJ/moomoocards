@@ -5,7 +5,7 @@ This is an inital plan for the app, don't expect any of the features to be worki
 
 # MooMooCards
 
-Web app for creating custom greetings cards typically involving funny animals. Creating cards works best on computers and tablets, phones are mostly for seeing received cards.
+Web app for creating custom greetings cards typically involving funny animals. Creating cards works best on computers and tablets, viewing cards works also on phones.
 
 ## Typical flow
 
