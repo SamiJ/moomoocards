@@ -8,6 +8,7 @@ router.get('/', function(req, res) {
 router.get('/card/:id', function(req, res) {
     var cards = req.db.get('cards')
     cards.findById(req.params.id, function(err, doc) {
+        if (err) console.log(err)
         res.render('card', {"imageDataUrl": doc.imageDataUrl})
     })
 })
