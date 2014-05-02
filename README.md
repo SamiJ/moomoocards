@@ -9,11 +9,11 @@ Web app for creating custom greetings cards typically involving funny animals. C
 
 ## Typical flow
 
-Customize card in browser
-Checkout if paid features (eg. charitable donations etc.) were added to the card
-Press create card to receive a unique url that shows the card
-Send or share the card
-Login with google account to see all the cards you have created and share the old ones
+1. Customize card in browser
+2. Checkout if paid features (eg. charitable donations etc.) were added to the card
+3. Press create card to receive a unique url that shows the card
+4. Send or share the card
+5. Login with google account to see all the cards you have created and share the old ones
 
 ## Key Features
 
