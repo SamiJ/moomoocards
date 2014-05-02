@@ -28,7 +28,7 @@ define(function (require) {
             y: 0,
             fontSize: 24,
             fontFamily: 'Calibri',
-            fill: '#eee',
+            fill: '#fff',
             width: 380,
             padding: 0,
             fontStyle: 'bold'
