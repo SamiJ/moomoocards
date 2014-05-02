@@ -1,9 +1,11 @@
 define(function (require) {
     var $ = require('jquery')
-    var _ = require('_')
+    var _ = require('underscore')
     require('kinetic')
 
-    var INITIAL_CARD = "/images/card_apina.png"
+    var INITIAL_CARD = "/images/card_apina.png",
+        STAGE_WIDTH = 600,
+        STAGE_HEIGHT = 400
 
     var stage,
         $container,
@@ -68,16 +70,22 @@ define(function (require) {
             })
 
             function saveCardToDb(dataUrl) {
-                save($message.val(), dataUrl, function (id) {
-                    var cardUrl = window.location.origin + "/card/" + id
-                    var facebookShareUrl = "http://www.facebook.com/sharer.php?u=" + encodeURIComponent(cardUrl)
-                    //FIXME - templates for js rendering?
-                    $container.append('<div>')
-                    $container.append('Card created successfully!<br>')
-                    $container.append('<a target="_blank" href="' + cardUrl + '">' + cardUrl + '</a><br><br>')
-                    $container.append('Share it on <a href="' + facebookShareUrl + '" target="_blank">Facebook</a>')
-                    $container.append('</div>')
-                })
+                save($message.val(), dataUrl, renderResponse)
+
+                function renderResponse(cardId) {
+                    var shareTemplate = _.template(
+                            '<div>' +
+                                '<p>Card created successfully!</p>' +
+                                '<p><a target="_blank" href="<%=cardUrl%> "><%=cardUrl%></a></p>' +
+                                '<p>Share it on <a href="<%=facebookShareUrl%>" target="_blank">Facebook</a></p>' +
+                            '</div>')
+                    var cardUrl = window.location.origin + "/card/" + cardId
+                    var shareHtml = shareTemplate({
+                        cardUrl: cardUrl,
+                        facebookShareUrl: "http://www.facebook.com/sharer.php?u=" + encodeURIComponent(cardUrl)
+                    })
+                    $container.append(shareHtml)
+                }
             }
         })
 
@@ -91,8 +99,8 @@ define(function (require) {
     function createStage(container) {
         return new Kinetic.Stage({
             container: container,
-            width: 640,
-            height: 420
+            width: STAGE_WIDTH,
+            height: STAGE_HEIGHT
         })
     }
 
