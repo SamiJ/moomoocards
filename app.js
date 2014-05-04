@@ -32,9 +32,11 @@ app.use(bodyParser.urlencoded())
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(function(req,res,next) {
+    //FIXME - handle db dependency in a smoother way
     req.db = db
     next()
 })
+app.use(logErrors)
 
 // dev environment
 if ('development' == env) {
@@ -47,3 +49,8 @@ app.set('port', process.env.PORT || 3000);
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 })
+
+function logErrors(err, req, res, next) {
+    console.error(err.stack);
+    next(err);
+}

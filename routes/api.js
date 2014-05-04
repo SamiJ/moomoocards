@@ -1,12 +1,18 @@
 var express = require('express')
 var router = express.Router()
 
+//TODO - handle errors
+
 router.get('/card/:id', function(req, res) {
     var cards = req.db.get('cards')
     cards.findById(req.params.id, function(err, doc) {
         if (err) console.log(err)
-        res.type('png')
-        res.send(doc.imageData.buffer)
+        if (doc != null) {
+            res.type('png')
+            res.send(doc.imageData.buffer)
+        } else {
+            res.send({"error": "Image not found"})
+        }
     })
 })
 
