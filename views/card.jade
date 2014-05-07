@@ -3,10 +3,12 @@ html
     head
         title="Greetings"
         link(rel='stylesheet', href='/stylesheets/style.css')
+        script.
+             var cardId = "#{cardId}"
+        script(data-main="/scripts/showCard", src="/scripts/libs/require.js")
     body
         block content
             h1= title
-            div(class="card")
-                img(src="/api/card/" + cardId)
+            div(id="cardContent" class="card")
             div
                 a(href="/") Create your own card
