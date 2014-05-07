@@ -44,13 +44,33 @@ if ('development' == env) {
 
 app.use('/', index)
 app.use('/api', api)
+app.use(logErrors)
+app.use(clientErrorHandler)
+app.use(errorHandler)
+app.use(function(req, res, next) {
+    res.send(404, "Sorry, the page you asked for wasn't found :(")
+})
 
-app.set('port', process.env.PORT || 3000);
-http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
+app.set('port', process.env.PORT || 3000)
+
+http.createServer(app).listen(app.get('port'), function() {
+  console.log('Express server listening on port ' + app.get('port'))
 })
 
 function logErrors(err, req, res, next) {
-    console.error(err.stack);
-    next(err);
+    console.error(err.stack)
+    next(err)
+}
+
+function clientErrorHandler(err, req, res, next) {
+    if (req.xhr) {
+        res.send(500, { error: 'Something blew up!' })
+    } else {
+        next(err)
+    }
+}
+
+function errorHandler(err, req, res, next) {
+    res.status(500)
+    res.render('error', { error: err })
 }
